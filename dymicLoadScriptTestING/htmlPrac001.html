@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style></style>
+        <!--Live Reload-->
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="./jquery-3.1.1.js"></script>
+
+        <!--Dict choice-->
+        <!--
+        -->
+        <!--
+            <script type="text/javascript" src="./load_proper.js"></script>
+            -->
+    </head>
+    <body>
+        <div style="float:right;"></div>
+        <div id="imeOuter"></div>
+
+        <span id="tipDiv">spanTIP</span>
+    </body>
+</html>
+<script type="text/javascript">
+ggg = "ori ggg";
+
+function loadScript(url){
+    var script = document.createElement("script")
+        script.type = "text/javascript";
+    script.src = url;
+    document.getElementsByTagName("body")[0].appendChild(script);
+}
+loadScript("td01.js");
+// console.log("when run index: td01_var = " + td01_var);
+
+window.onload = function()
+{
+    console.log("when run index: td01_var = " + td01_var);
+}
+
+var aa = true;
+if(aa) {
+    rryy = loadScript("./td01.js", function() {
+        // console.log(dd09);
+    });
+} else {
+    loadScript("./td02.js");
+}
+
+/*
+ */
+//         console.log(typeof(rryy));
+//         console.log(typeof(rryy));
+
+</script>

@@ -1,0 +1,20 @@
+// jQuery 簡化 ready() 函式的調用寫法
+$().ready(…) ; 
+$(…) ; 
+
+// get key event 我不会
+// $("input").keydown(function(event){
+// if (event.which == 32) {
+
+// Set the value of the <input> field:
+$("button").click(function(){
+    $("input:text").val("Glenn Quagmire");
+});
+
+$("button").click(function() {
+});
+
+//sleep
+setTimeout(function() {
+}, 2000);
+

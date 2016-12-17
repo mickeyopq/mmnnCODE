@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type="text/javascript">
+        </script>
+        <style>
+#tipDiv {
+    position: fixed;
+    padding: 10px;
+    left: 600px;
+    top: 130px;
+    color: #ff5400;
+    border-style:groove;
+    font-size: 250%;
+}
+    .txShowCs {
+        display: inline-block;
+    }
+
+    .txInCs, .txShowCs {
+        font: bold;
+        font-size:150%;
+            // background-color: lightgreen;
+    }
+        </style>
+        <!--Live Reload-->
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+        <link href="./uuu.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <title></title>
+        <script type="text/javascript" src="./jquery-3.1.1.js"></script>
+
+        <!--Dict choice-->
+        <!--
+            <script type="text/javascript" src="./dictFile/msCjDict.js"></script>
+            -->
+            <script type="text/javascript" src="./dictFile/thpinyinDEV.js"></script>
+            <script type="text/javascript" src="./dictFile/_2pin.js"></script>
+    </head>
+    <body>
+        <div style="float:right;">
+            <textarea rows="5" cols="70">
+                At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. 
+            </textarea>
+            <br />
+            <button id="tareBtn0">BUTTON</button>
+        </div>
+        <div id="imeOuter"></div>
+
+        <span id="tipDiv">spanTIP</span>
+    </body>
+
+</html>
+    <script type="text/javascript">
+var spssS = "";
+var spss = new Array();
+var spss1time = "火火卜肗丹火卜肗丹火卜肗丹火卜肗丹火卜肗丹火卜肗丹火卜肗丹火卜肗丹火卜肗丹卜肗丹 ";
+// regex test DeEVdev
+var re = /\bsh|\bzh|\bch/gi;
+var hhh = new RegExp(/\bsh|\bzh|\bch/);
+var str = "Apples are sh zh chi AAchlround, and apples are juicy.";
+var newstr = str.replace(re, "HHHH");
+
+var reg_1Yun = /\ba\b|\bo\b|\be\b/g;  //non map
+var regScrollShen = /\bsh|\bzh|\bch/g;  // 2ed if
+var regCap = /\bb|\bp|\bm|\bf|\bd|\bt|\bn|\bl|\bg|\bk|\bh|\bj|\bq|\bx|\br|\bz|\bc|\bs|\bw|\by/g;
+function qryCh(a , b){
+    for (x in b) {
+        if(b[x].ch == a){
+            // call shungpin ext plugin here
+            // var b = cin3[x].code; 
+            return b[x].code; 
+        } } }
+
+function sp_2pin(vala , _reg){
+    var _cap0 = vala.match(_reg);
+    var _cap = _cap0[0];
+    var _btm = vala.replace(_cap,"");
+    return [_cap,_btm]
+}
+function shungpin(a, callback){
+    if (a.match(reg_1Yun)){
+        return a
+            // callback(a)
+    } else if (!(a.match(regCap))) {
+        var bb = qryCh(a,_2BtmYun);
+        // callback(bb);
+        return bb
+    } else if (a.match(regScrollShen)) {
+        var ccArr = sp_2pin(a,regScrollShen);
+        var cc0 = qryCh(ccArr[0],_2Scroll);
+        var cc1 = qryCh(ccArr[1],_2BtmYun);
+        return cc0+cc1;
+        // callback(cc0+cc1)
+    } else{
+        var ccArr = sp_2pin(a,regCap);
+        var cc0 = ccArr[0];
+        var cc1 = qryCh(ccArr[1],_2BtmYun);
+        return cc0+cc1;
+        // callback(cc0+cc1)
+    }
+}
+
+var qc1 =  qryCh("决",cin3);
+var vb2 = shungpin(qc1);
+
+getIn(spss1time); //run 1st time
+layoutSItxt(); //run 1st time
+// showchCode1st();
+function getIn(x){
+    spssS = x.replace(/\s/g,"");
+    spss = spssS.split(""); // => olleh  NG var array to string
+}
+// layout span input tagsTEXT
+function layoutSItxt(){
+    for (i = 0; i < spss.length; i+=20) {
+        for (j = i; j < i+20 ; j++) {
+            var txt1 = $("<span></span>").attr("id", "txShow"+j).addClass("txShowCs").text(spss[j]);
+            $("#imeOuter").append(txt1);
+        }
+        var txt2 = $("<br />");
+        $("#imeOuter").append(txt2);
+        var txt3 = $("<input>").attr("id", "txIn"+i).addClass("txInCs").attr("type", "text").attr("maxlength", "20").attr("size", "36");
+        $("#imeOuter").append(txt3);
+        var txt4 = $("<br /><br />");
+        $("#imeOuter").append(txt4);
+    }
+}
+
+//show chCode 1st
+function showchCode1st(){
+    var qc1 =  qryCh(spss[0],cin3);
+    var qc3 = shungpin(qc1);
+    var qc3;
+    $("#tipDiv").text(qc3);
+}
+showchCode1st();
+// combine all input.val()
+function combineallinput(){
+    var inputs = document.querySelectorAll("input");
+    Array.prototype.forEach.call(inputs, function(input) {
+        input.addEventListener("input", function(e) {
+
+            for (var i = 0, val = "", len = inputs.length; i < len; i++) {
+                val += inputs[i].value;
+            }
+            val = val.split("");
+            for (i=0;i<val.length;i++){
+                if(val[i] == spss[i]) {
+                    var qc3 =  qryCh(spss[i+1],cin3);
+                    // shungpin
+                    var qc4 = shungpin(qc3,function(){});
+                    $("#tipDiv").text(qc4);
+                    $("#txShow"+i).css("background-color","lightgreen");
+                } else {console.log("com else=================");}
+            }
+        })
+    })
+}
+combineallinput();
+
+// compareString and show color chCode 動態的地
+
+$('#tareBtn0').click(function(){
+    spssS =$("textarea").val();
+    $("#imeOuter").empty();
+    getIn(spssS);
+    layoutSItxt();
+    combineallinput();
+    showchCode1st()
+});
+    </script>
